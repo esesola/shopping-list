@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 
+
 class ProductoController extends Controller
 {
     /**
@@ -14,6 +15,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
+        error_log("entra");
         return Producto::orderBy('create_at', 'DESC')->get();
     }
 
@@ -37,10 +39,10 @@ class ProductoController extends Controller
     {
         //
         $newProducto = new Producto;
-        $newProducto->name = $request->item["name"];
+        $newProducto->name = $request->producto["name"];
         $newProducto->save();
 
-        return $newItem;
+        return $newProducto;
     }
 
     /**
@@ -75,6 +77,14 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $existeingProducto = Producto :: find($id);
+        if ($existeingProducto){
+            $existeingProducto -> completed = $request -> producto ['completed'] ? true : false;
+
+            $existeingProducto->save();
+            return $existeingProducto;
+        }
+        return "Producto no encontrado :("; 
     }
 
     /**
@@ -86,5 +96,11 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
+        $existeingProducto = Producto :: find($id);
+        if ($existeingProducto){
+            $existeingProducto->delete();
+            return "Borrado el producto correctamente :)";
+        }
+        return "Producto no encontrado :("; 
     }
 }

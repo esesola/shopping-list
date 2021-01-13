@@ -17,7 +17,7 @@ class CreateProductosTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('completed')->default(false);
-            $table->timestamps('completed_at')->nullable();
+            //$table->timestamps('completed_at')->nullable();
             $table->timestamps();
         });
     }
