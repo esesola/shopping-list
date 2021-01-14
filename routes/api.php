@@ -19,11 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/produtos',[ProductoController::class, 'index']);
+Route::get('productos', [ProductoController::class,'index']);
 Route::prefix('/producto')->group(function(){
     Route::post('/store', [ProductoController::class,'store']);
     Route::put('/{id}', [ProductoController::class,'update']);
     Route::delete('/{id}', [ProductoController::class,'destroy']);
+    Route::get('/{id}', [ProductoController::class, 'show']);
     });
 
 ?>

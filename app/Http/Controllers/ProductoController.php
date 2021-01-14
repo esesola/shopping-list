@@ -16,7 +16,7 @@ class ProductoController extends Controller
     public function index()
     {
         error_log("entra");
-        return Producto::orderBy('create_at', 'DESC')->get();
+        return Producto::all();
     }
 
     /**
@@ -54,6 +54,8 @@ class ProductoController extends Controller
     public function show($id)
     {
         //
+        $existingProducto = Producto:: find($id);
+        return $existingProducto;
     }
 
     /**
@@ -77,12 +79,12 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $existeingProducto = Producto :: find($id);
-        if ($existeingProducto){
-            $existeingProducto -> completed = $request -> producto ['completed'] ? true : false;
+        $existingProducto = Producto :: find($id);
+        if ($existingProducto){
+            $existingProducto -> completed = $request -> producto ['completed'] ? true : false;
 
-            $existeingProducto->save();
-            return $existeingProducto;
+            $existingProducto->save();
+            return $existingProducto;
         }
         return "Producto no encontrado :("; 
     }
@@ -96,9 +98,9 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
-        $existeingProducto = Producto :: find($id);
-        if ($existeingProducto){
-            $existeingProducto->delete();
+        $existingProducto = Producto :: find($id);
+        if ($existingProducto){
+            $existingProducto->delete();
             return "Borrado el producto correctamente :)";
         }
         return "Producto no encontrado :("; 
